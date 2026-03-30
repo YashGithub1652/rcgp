@@ -2202,29 +2202,7 @@
                 <div class="sec-head rv">
                     <div class="sec-tag">GLORY AWAITS</div>
                     <h2 class="sec-title">PRIZE POOL — ₹30,000</h2>
-                    <p class="sec-sub">Per segment. Win all three for Grand Slam bonus.</p>
-                </div>
-                <div class="prize-grid">
-                    <div class="prize g rv">
-                        <div class="medal">🥇</div>
-                        <div class="place">1ST PLACE</div>
-                        <div class="amt">₹15,000</div>
-                        <div class="inc">Gold Trophy + Certificate<br>Magazine Feature<br>Free 2027 Entry</div>
                     </div>
-                    <div class="prize s rv">
-                        <div class="medal">🥈</div>
-                        <div class="place">2ND PLACE</div>
-                        <div class="amt">₹10,000</div>
-                        <div class="inc">Silver Trophy + Certificate<br>Premium Parts Kit<br>Media Coverage</div>
-                    </div>
-                    <div class="prize b rv">
-                        <div class="medal">🥉</div>
-                        <div class="place">3RD PLACE</div>
-                        <div class="amt">₹5,000</div>
-                        <div class="inc">Bronze Trophy + Certificate<br>Sponsor Gift Pack<br>Social Spotlight</div>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section id="faq" class="faq-sec">
@@ -2289,11 +2267,6 @@
     <footer>
         <div class="foot-row">
             <div class="foot-l"><i data-lucide="zap" class="zap"></i>RCGP 2026 — BUILT FOR SPEED.</div>
-            <div class="foot-m"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sponsors</a><a
-                    href="#">Contact</a></div>
-            <div class="foot-r"><a href="#"><i data-lucide="globe"></i></a><a href="#"><i
-                        data-lucide="instagram"></i></a><a href="#"><i data-lucide="youtube"></i></a><a href="#"><i
-                        data-lucide="twitter"></i></a></div>
         </div>
     </footer>
 
@@ -2312,9 +2285,33 @@
         addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', scrollY > 50));
 
         // COUNTDOWN
-        const ev = new Date('2026-08-15T10:00:00').getTime();
-        function tk() { const x = ev - Date.now(); if (x <= 0) return; document.getElementById('d').textContent = String(Math.floor(x / 864e5)).padStart(2, '0'); document.getElementById('h').textContent = String(Math.floor(x % 864e5 / 36e5)).padStart(2, '0'); document.getElementById('m').textContent = String(Math.floor(x % 36e5 / 6e4)).padStart(2, '0'); document.getElementById('s').textContent = String(Math.floor(x % 6e4 / 1e3)).padStart(2, '0') }
-        tk(); setInterval(tk, 1000);
+        const targetDate = new Date("2026-04-10T09:00:00+05:30").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById("d").textContent = "00";
+                document.getElementById("h").textContent = "00";
+                document.getElementById("m").textContent = "00";
+                document.getElementById("s").textContent = "00";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("d").textContent = String(days).padStart(2, '0');
+            document.getElementById("h").textContent = String(hours).padStart(2, '0');
+            document.getElementById("m").textContent = String(minutes).padStart(2, '0');
+            document.getElementById("s").textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
 
         // FAQ
         function togFaq(el) { el.parentElement.classList.toggle('active') }
